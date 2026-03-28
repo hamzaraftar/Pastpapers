@@ -12,4 +12,4 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Paper)
 class PaperAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'code', 'course', 'file']
+    list_display = ['id','code','course', 'paper_type', 'file']
