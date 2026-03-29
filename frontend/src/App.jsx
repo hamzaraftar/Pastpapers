@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SubjectsPage from "./pages/SubjectsPage";
+import Home from "./pages/Home";
 import CoursesPage from "./pages/CoursesPage";
 import PapersListPage from "./pages/PapersListPage";
 import PdfViewerPage from "./pages/PdfViewerPage";
@@ -9,11 +9,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SubjectsPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/pastpapers" element={<PapersListPage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/subjects/:subjectId" element={<CoursesPage />} />
-        <Route path="/subjects/:subjectId/courses/:courseId" element={<PapersListPage />} />
-        <Route path="/subjects/:subjectId/courses/:courseId/papers/:paperId" element={<PdfViewerPage />} />
+        <Route path="/pastpapers/:paperId" element={<PdfViewerPage />} />
       </Routes>
     </Router>
   );

@@ -11,9 +11,9 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: "Subjects", path: "/subjects" },
+
     { name: "Courses", path: "/courses" },
-    { name: "Papers", path: "/papers" },
+    { name: "Past Papers", path: "/pastpapers" },
     { name: "About", path: "/about" },
   ];
 

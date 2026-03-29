@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GraduationCap, Target, Search, TrendingUp, BookOpen, ChevronRight } from "lucide-react";
+import Layout from "../components/Layout";
 
 export default function About() {
   const features = [
@@ -39,6 +40,7 @@ export default function About() {
   ];
 
   return (
+    <Layout>
     <div className="min-h-screen bg-gray-50/50">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-white border-b border-gray-100">
@@ -113,5 +115,6 @@ export default function About() {
         </div>
       </div>
     </div>
+    </Layout>
   );
 }
