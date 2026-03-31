@@ -24,7 +24,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 text-white font-bold text-xl shadow-md group-hover:bg-blue-700 transition-colors">
-              <span className="tracking-tighter">P.V</span>
+              <span className="tracking-tighter">P V</span>
             </div>
             <span className="text-xl font-bold tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block">
               PaperVault

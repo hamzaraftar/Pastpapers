@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CoursesPage from "./pages/CoursesPage";
 import PapersListPage from "./pages/PapersListPage";
@@ -7,15 +7,15 @@ import About from "./pages/About";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/courses/:subjectId" element={<CoursesPage />} />
         <Route path="/pastpapers" element={<PapersListPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/pastpapers/:paperId" element={<PdfViewerPage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

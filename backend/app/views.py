@@ -15,7 +15,7 @@ class SubjectDetail(generics.RetrieveUpdateDestroyAPIView):
 class CourseListCreate(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    filterset_fields = ['subject__name']
+    filterset_fields = ['subject']
 
 
 
@@ -26,8 +26,7 @@ class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
 class PaperListCreate(generics.ListCreateAPIView):
     queryset = Paper.objects.all()
     serializer_class = PaperSerializer
-    filter_backends = [SearchFilter]
-    search_fields = ['^course__name','=code','^paper_type']
+    filterset_fields = ['course']
 
 
 class PaperDetail(generics.RetrieveUpdateDestroyAPIView):
