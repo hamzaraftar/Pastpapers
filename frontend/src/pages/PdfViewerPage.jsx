@@ -34,7 +34,7 @@ export default function PdfViewerPage() {
   if (loading) {
     return (
       <Layout>
-        <div className="flex justify-center items-center min-h-[600px]">
+        <div className="flex justify-center items-center min-h-150">
           <LoadingIndicator />
         </div>
       </Layout>
@@ -44,7 +44,7 @@ export default function PdfViewerPage() {
   if (error || !paper) {
     return (
       <Layout>
-        <div className="max-w-[1126px] mx-auto px-6 py-10 text-center">
+        <div className="max-w-281.5 mx-auto px-6 py-10 text-center">
           <button 
             onClick={() => navigate(-1)} 
             className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-6 transition-colors"
@@ -70,7 +70,7 @@ export default function PdfViewerPage() {
 
   return (
     <Layout>
-      <main className="max-w-[1126px] mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-281.5 mx-auto px-4 sm:px-6 py-8">
         <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <button 

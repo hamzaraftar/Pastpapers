@@ -54,7 +54,7 @@ export default function PapersListPage() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center min-h-[400px]">
+          <div className="flex justify-center items-center min-h-100">
             <LoadingIndicator />
           </div>
         ) : error ? (
@@ -77,7 +77,7 @@ export default function PapersListPage() {
                  key={paper.id} 
                  className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col group relative overflow-hidden"
                >
-                 <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full z-0 group-hover:scale-150 transition-transform duration-500 opacity-60"></div>
+                 <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-linear-to-br from-indigo-50 to-blue-50 rounded-full z-0 group-hover:scale-150 transition-transform duration-500 opacity-60"></div>
                  
                  <div className="relative z-10 flex-col flex h-full">
                    <div className="flex items-center space-x-2 mb-4">
