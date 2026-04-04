@@ -43,6 +43,8 @@ export default function Header() {
 
     if (searchQuery.trim() !== "") {
       navigate(`/pastpapers?search=${searchQuery}`);
+      console.log(searchQuery);
+      
       setSearchQuery("");
       setShowSearch(false);
     }

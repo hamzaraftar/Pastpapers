@@ -7,7 +7,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 export default function CoursesPage() {
 
   const { subjectId } = useParams();
-  
+  console.log(`Subject ID: ${subjectId}`);
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { useSearchParams, Link, useNavigate} from "react-router-dom";
 import Layout from "../components/Layout";
 import api from "../api";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function PapersListPage() {
-
+  
   const [searchParams] = useSearchParams();
   const courseId = searchParams.get("course");
-  const navigate = useNavigate();
+  console.log(`Course  id  ${courseId}`);
+  
+  const navigate = useNavigate();    
 
   const [papers, setPapers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,12 +20,8 @@ export default function PapersListPage() {
     async function getPapers() {
       try {
         setLoading(true);
-        console.log(`Fetching papers for course: ${courseId}`);
-        const url = courseId ? `/api/papers/?course=${courseId}` : `/api/papers/`;
-        const res = await api.get(url);
-        setPapers(res.data);
-        console.log(res.data);
-        
+        const res = await api.get(`/api/papers/?course=${courseId}`);              
+        setPapers(res.data); 
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -61,6 +59,7 @@ export default function PapersListPage() {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl">
+          
           <div className="text-center py-16 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-2xl max-w-3xl mx-auto shadow-sm">
             <svg
               className="mx-auto h-12 w-12 text-slate-400 dark:text-slate-600 mb-4"
@@ -81,6 +80,24 @@ export default function PapersListPage() {
             <p className="text-slate-500 dark:text-slate-400">
               There are currently no past papers available for this selection.
             </p>
+            <button
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 font-medium mb-6 transition-colors bg-transparent border-none cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Back to Courses
+          </button>
           </div>
         </div>
       </Layout>
@@ -125,7 +142,7 @@ export default function PapersListPage() {
                 key={paper.id}
                 className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] transition-all duration-300 border border-slate-100 dark:border-slate-800 flex flex-col group relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-28 h-28 bg-gradient-to-br from-brand-100 to-cyan-100 dark:from-brand-900/40 dark:to-cyan-900/40 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-60"></div>
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-28 h-28 bg-linear-to-br from-brand-100 to-cyan-100 dark:from-brand-900/40 dark:to-cyan-900/40 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-60"></div>
 
                 <div className="relative z-10 flex-col flex h-full">
                   <div className="flex items-center space-x-2 mb-4">

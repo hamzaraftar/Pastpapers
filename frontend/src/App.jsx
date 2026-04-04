@@ -10,7 +10,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:subjectId" element={<CoursesPage />} />
         <Route path="/pastpapers" element={<PapersListPage />} />
         <Route path="/pastpapers/:paperId" element={<PdfViewerPage />} />
