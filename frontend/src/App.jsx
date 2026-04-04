@@ -1,19 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
 import CoursesPage from "./pages/CoursesPage";
 import PapersListPage from "./pages/PapersListPage";
 import PdfViewerPage from "./pages/PdfViewerPage";
-import About from "./pages/About";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:subjectId" element={<CoursesPage />} />
         <Route path="/pastpapers" element={<PapersListPage />} />
-        <Route path="/about" element={<About />} />
         <Route path="/pastpapers/:paperId" element={<PdfViewerPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   );

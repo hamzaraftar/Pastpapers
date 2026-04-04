@@ -1,100 +1,173 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { BookOpen, Sun, Moon, Search, X } from "lucide-react";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return (
+        localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      );
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      setDarkMode(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setDarkMode(true);
+    }
   };
 
-  const navLinks = [
+  const handleSearch = (e) => {
+    e.preventDefault();
 
-    { name: "Courses", path: "/courses" },
-    { name: "Past Papers", path: "/pastpapers" },
-    { name: "About", path: "/about" },
-  ];
+    if (searchQuery.trim() !== "") {
+      navigate(`/pastpapers?search=${searchQuery}`);
+      setSearchQuery("");
+      setShowSearch(false);
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 w-full glass-header relative transition-colors duration-500">
+
+      <div className="absolute inset-0 bg-brand-500/5 dark:bg-brand-500/10 h-1"></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+
+        <div className="flex items-center justify-between h-20 gap-4">
+
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 text-white font-bold text-xl shadow-md group-hover:bg-blue-700 transition-colors">
-              <span className="tracking-tighter">P V</span>
+          <Link to="/" className="flex items-center gap-3 group">
+
+            <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-linear-to-br from-brand-500 to-brand-700 dark:from-brand-400 dark:to-brand-600 text-white font-bold text-xl shadow-lg transition-all duration-300">
+
+              <BookOpen className="w-5 h-5 absolute opacity-0 group-hover:opacity-100 transition-opacity" />
+
+              <span className="tracking-tighter group-hover:opacity-0 transition-opacity">
+                PV
+              </span>
+
             </div>
-            <span className="text-xl font-bold tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block">
+
+            <span className="text-2xl font-extrabold tracking-tight text-slate-800 dark:text-white hidden sm:block">
               PaperVault
             </span>
+
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-2">
-            {navLinks.map((link) => {
-              const isActive = location.pathname.startsWith(link.path);
-              return (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`px-4 py-2 text-xl font-medium transition-all duration-200 ease-in-out border-b-4 ${
-                    isActive
-                      ? "border-blue-600 text-blue-600"
-                      : "border-transparent text-gray-600 hover:text-gray-900 hover:border-blue-600"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Desktop Search */}
+          <form
+            onSubmit={handleSearch}
+            className="hidden md:flex flex-1 max-w-xl"
+          >
+            <div className="flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-xl px-3 py-2">
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMenu}
-              className="p-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
-              aria-expanded={isMenuOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              {isMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
+              <Search className="w-4 h-4 text-slate-500 mr-2" />
 
-      {/* Mobile Menu Panel */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="px-4 pt-2 pb-4 space-y-1 bg-white border-t border-gray-100 shadow-inner">
-          {navLinks.map((link) => {
-            const isActive = location.pathname.startsWith(link.path);
-            return (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
-                  isActive
-                    ? "bg-blue-50 text-blue-600 shadow-sm border border-blue-100"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                }`}
+              <input
+                type="text"
+                placeholder="Search papers, courses..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent outline-none text-sm text-slate-700 dark:text-white"
+              />
+
+              <button
+                type="submit"
+                className="ml-2 px-4 py-1.5 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700"
               >
-                {link.name}
-              </Link>
-            );
-          })}
+                Search
+              </button>
+
+            </div>
+          </form>
+
+          {/* Desktop Icons */}
+          <div className="hidden md:flex items-center gap-2">
+
+            <button
+              onClick={toggleDarkMode}
+              className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
+          </div>
+
+          {/* Mobile Icons */}
+          <div className="md:hidden flex items-center gap-2">
+
+            {/* Search Icon */}
+            <button
+              onClick={() => setShowSearch(!showSearch)}
+              className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              {showSearch ? <X size={20} /> : <Search size={20} />}
+            </button>
+
+            {/* Dark Mode */}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
+          </div>
+
         </div>
+
       </div>
+
+      {/* Mobile Search */}
+      {showSearch && (
+        <div className="md:hidden border-t border-slate-200 dark:border-slate-800">
+
+          <form
+            onSubmit={handleSearch}
+            className="px-4 py-4 flex gap-2"
+          >
+
+            <input
+              type="text"
+              placeholder="Search papers..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-white outline-none"
+            />
+
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-xl bg-brand-600 text-white"
+            >
+              Search
+            </button>
+
+          </form>
+
+        </div>
+      )}
     </header>
   );
 }
