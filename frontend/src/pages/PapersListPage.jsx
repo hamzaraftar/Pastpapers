@@ -32,7 +32,6 @@ export default function PapersListPage() {
 
         const res = await api.get(url);
         setPapers(res.data);
-
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -43,6 +42,10 @@ export default function PapersListPage() {
 
     getPapers();
   }, [courseId, searchParams]);
+
+  function getFileName(url) {
+    return url.split("/").pop();
+  }
 
   if (loading) {
     return (
@@ -175,6 +178,11 @@ export default function PapersListPage() {
                   <h1 className="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                     {paper.course}
                   </h1>
+                  {/* file name  */}
+                  <h2 className="text-sm text-slate-600 dark:text-slate-400 mb-2 truncate">
+                    {getFileName(paper.file)}
+                  </h2>
+
                   <h2 className="text-md font-semibold text-slate-800 dark:text-white mb-1 ">
                     {paper.paper_type === "midterm"
                       ? "Midterm Exam Paper"

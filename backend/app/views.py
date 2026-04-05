@@ -31,7 +31,7 @@ class PaperListCreate(generics.ListCreateAPIView):
     filter_backends = [SearchFilter, DjangoFilterBackend]
 
     filterset_fields = ['course']
-    search_fields = ['code','^course__name']
+    search_fields = ['code','course__name']
 
 class PaperDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Paper.objects.all()

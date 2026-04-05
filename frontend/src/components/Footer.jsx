@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="bg-blue-500 dark:bg-blue-700 text-gray-300 ">
-      <div className="max-w-6xl mx-auto px-6 py-3.5">
+      <div className="max-w-6xl mx-auto px-6 py-7">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* App Name */}
@@ -28,7 +28,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t white-gray-700 mt-4 pt-4 text-center text-sm text-white">
           © {new Date().getFullYear()} PaperVault . Built with ❤️ by{" "}
-          <span className="text-white font-medium">Hamza Asghar</span>
+          <span className="text-white font-semibold">Hamza Asghar</span>
         </div>
       </div>
     </footer>
