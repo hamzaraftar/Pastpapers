@@ -42,8 +42,9 @@ export default function Header() {
     e.preventDefault();
 
     if (searchQuery.trim() !== "") {
-      navigate(`/pastpapers?search=${searchQuery}`);
       console.log(searchQuery);
+
+      navigate(`/pastpapers?search=${searchQuery}`);
       
       setSearchQuery("");
       setShowSearch(false);
@@ -97,11 +98,10 @@ export default function Header() {
 
               <button
                 type="submit"
-                className="ml-2 px-4 py-1.5 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700"
+                className="ml-2 px-4 py-1.5 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700 cursor-pointer"
               >
                 Search
               </button>
-
             </div>
           </form>
 

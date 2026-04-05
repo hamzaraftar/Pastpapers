@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link, useNavigate} from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import api from "../api";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function PapersListPage() {
-  
   const [searchParams] = useSearchParams();
+
   const courseId = searchParams.get("course");
-  console.log(`Course  id  ${courseId}`);
-  
-  const navigate = useNavigate();    
+  const searchQuery = searchParams.get("search");
+  // console.log(`Course  id  ${courseId}`);
+
+  const navigate = useNavigate();
 
   const [papers, setPapers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,18 +21,28 @@ export default function PapersListPage() {
     async function getPapers() {
       try {
         setLoading(true);
-        const res = await api.get(`/api/papers/?course=${courseId}`);              
-        setPapers(res.data); 
+
+        let url = "/api/papers/";
+        const params = [];
+
+        if (courseId) params.push(`course=${courseId}`);
+        if (searchQuery) params.push(`search=${searchQuery}`);
+
+        if (params.length > 0) url += `?${params.join("&")}`;
+
+        const res = await api.get(url);
+        setPapers(res.data);
+
         setLoading(false);
       } catch (err) {
         setLoading(false);
         setError("Failed to fetch papers. Please try again later.");
-        console.error(err.message);
+        console.error(err);
       }
     }
 
     getPapers();
-  }, [courseId]);
+  }, [courseId, searchParams]);
 
   if (loading) {
     return (
@@ -59,7 +70,6 @@ export default function PapersListPage() {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl">
-          
           <div className="text-center py-16 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-2xl max-w-3xl mx-auto shadow-sm">
             <svg
               className="mx-auto h-12 w-12 text-slate-400 dark:text-slate-600 mb-4"
@@ -81,23 +91,23 @@ export default function PapersListPage() {
               There are currently no past papers available for this selection.
             </p>
             <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 font-medium mb-6 transition-colors bg-transparent border-none cursor-pointer"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 font-medium mb-6 transition-colors bg-transparent border-none cursor-pointer"
             >
-              <path
-                fillRule="evenodd"
-                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Back to Courses
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Back to Courses
+            </button>
           </div>
         </div>
       </Layout>
@@ -162,8 +172,10 @@ export default function PapersListPage() {
                       </span>
                     )}
                   </div>
-
-                  <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-2">
+                  <h1 className="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {paper.course}
+                  </h1>
+                  <h2 className="text-md font-semibold text-slate-800 dark:text-white mb-1 ">
                     {paper.paper_type === "midterm"
                       ? "Midterm Exam Paper"
                       : "Final Exam Paper"}

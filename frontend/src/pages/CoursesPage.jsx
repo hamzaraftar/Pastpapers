@@ -5,9 +5,8 @@ import api from "../api";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function CoursesPage() {
-
   const { subjectId } = useParams();
-  console.log(`Subject ID: ${subjectId}`);
+
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -18,6 +17,7 @@ export default function CoursesPage() {
         setLoading(true);
         const res = await api.get(`/api/courses/?subject=${subjectId}`);
         setCourses(res.data);
+
         setLoading(false);
       } catch (err) {
         setLoading(false);
