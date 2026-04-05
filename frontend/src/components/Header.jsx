@@ -84,9 +84,9 @@ export default function Header() {
             onSubmit={handleSearch}
             className="hidden md:flex flex-1 max-w-xl"
           >
-            <div className="flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-xl px-3 py-2">
+            <div className="flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-xl px-3 py-2.5">
 
-              <Search className="w-4 h-4 text-slate-500 mr-2" />
+              <Search className="w-8 h-6 text-slate-500 mr-2" />
 
               <input
                 type="text"
@@ -98,7 +98,7 @@ export default function Header() {
 
               <button
                 type="submit"
-                className="ml-2 px-4 py-1.5 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700 cursor-pointer"
+                className="ml-2 px-4 py-1.5 rounded-lg bg-brand-600 text-white text-md  hover:bg-brand-700 cursor-pointer"
               >
                 Search
               </button>
@@ -110,9 +110,9 @@ export default function Header() {
 
             <button
               onClick={toggleDarkMode}
-              className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode ? <Sun size={30} /> : <Moon size={30} />}
             </button>
 
           </div>

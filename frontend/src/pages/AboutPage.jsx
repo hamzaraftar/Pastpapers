@@ -102,7 +102,7 @@ export default function About() {
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">Ready to start preparing?</h2>
             <p className="text-brand-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-              Join thousands of students who are already using PaperVault to ace their exams and save valuable time.
+              Join students who are already using PaperVault to ace their exams and save valuable time.
             </p>
             <Link
               to="/"
