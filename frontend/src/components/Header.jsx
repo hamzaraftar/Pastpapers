@@ -52,7 +52,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-header relative transition-colors duration-500">
+    <header className="sticky top-0 z-50 w-full glass-header  transition-colors duration-500">
 
       <div className="absolute inset-0 bg-brand-500/5 dark:bg-brand-500/10 h-1"></div>
 
