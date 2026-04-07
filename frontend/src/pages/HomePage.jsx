@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12 sm:py-20 max-w-7xl">
+      <div className="container mx-auto px-4 py-6 sm:py-10 max-w-7xl">
         <div className="mb-20 text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center justify-center p-2 px-4 bg-brand-50 dark:bg-brand-900/40 rounded-full mb-8 border border-brand-100/50 dark:border-brand-700/30 shadow-sm shadow-brand-100 dark:shadow-brand-900/50">
             <span className="text-brand-600 dark:text-brand-300 text-sm font-semibold tracking-wide uppercase">
