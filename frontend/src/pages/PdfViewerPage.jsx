@@ -64,6 +64,7 @@ export default function PdfViewerPage() {
             </svg>
             Go Back
           </button>
+
           <div className="text-center text-red-500 py-10 bg-red-50 dark:bg-red-900/20 rounded-xl max-w-2xl mx-auto border border-red-100 dark:border-red-900/50">
             <p className="font-medium">{error || "Paper not found."}</p>
           </div>
@@ -72,44 +73,51 @@ export default function PdfViewerPage() {
     );
   }
 
-  // Format the title out of available data
+  // ✅ Title
   const courseName = paper.course || "Course";
   const paperType =
     paper.paper_type === "final" ? "Final Exam" : "Midterm Exam";
   const title = `${courseName} - ${paperType}`.trim();
 
+  // ✅ FIXED BASE URL
+  const BASE_URL = "https://hamzaraftar.pythonanywhere.com";
+
   const fileUrl = paper.file
     ? paper.file.startsWith("http")
       ? paper.file
-      : `http://localhost:8000${paper.file}`
+      : `${BASE_URL}${paper.file}`
     : null;
 
-   return fileUrl ? (
-  <div className="w-screen h-screen bg-slate-100 dark:bg-slate-900">
-    <Header />
-    <iframe
-      src={`${fileUrl}#view=FitH`}
-      title={title}
-      className="w-full h-full"
-      allowFullScreen
-    />
-  </div>
-) : (
-  <div className="flex flex-col items-center justify-center w-screen h-screen text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-16 w-16 mb-4 text-slate-300 dark:text-slate-700"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  return fileUrl ? (
+    <div className="w-screen h-screen bg-slate-100 dark:bg-slate-900">
+      <Header />
+
+      {/* ✅ GOOGLE PDF VIEWER */}
+      <iframe
+        src={`https://docs.google.com/gview?url=${encodeURIComponent(
+          fileUrl,
+        )}&embedded=true`}
+        className="w-full h-full"
+        title={title}
       />
-    </svg>
-    <p className="text-lg">No PDF file attached to this paper.</p>
-  </div>
-);  }
+    </div>
+  ) : (
+    <div className="flex flex-col items-center justify-center w-screen h-screen text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-16 w-16 mb-4 text-slate-300 dark:text-slate-700"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <p className="text-lg">No PDF file attached to this paper.</p>
+    </div>
+  );
+}

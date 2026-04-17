@@ -15,23 +15,34 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class PaperSerializer(serializers.ModelSerializer):
     course = serializers.StringRelatedField()
-    
+    file = serializers.SerializerMethodField()
 
     class Meta:
         model = Paper
-        fields = ['id','code','course', 'paper_type',   'file']     
-   
-    # file can't me empty and file must be pdf 
+        fields = "__all__"
+
+    def get_file(self, obj):
+        if obj.file:
+            url = obj.file.url
+            # Ensure HTTPS
+            if url.startswith("http://"):
+                url = url.replace("http://", "https://")
+            return url
+        return None
+    # file can't be empty and must be pdf
     def validate_file(self, value):
         if not value:
             raise serializers.ValidationError("File field cannot be empty.")
         
-        if not value.name.lower().endswith('.pdf'):
+        if not value.name.lower().endswith(".pdf"):
             raise serializers.ValidationError("Only PDF files are allowed.")
+        
         return value
-    
+
     # paper type must be either midterm or final
     def validate_paper_type(self, value):
-        if value not in ['midterm', 'final']:
-            raise serializers.ValidationError("Paper type must be either 'midterm' or 'final'.")
+        if value not in ["midterm", "final"]:
+            raise serializers.ValidationError(
+                "Paper type must be either 'midterm' or 'final'."
+            )
         return value

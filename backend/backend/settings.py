@@ -1,4 +1,5 @@
 from pathlib import Path
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,8 @@ INSTALLED_APPS = [
     'app',
     'corsheaders',
     'django_filters',
+    "cloudinary",
+    "cloudinary_storage",
 ]
 
 MIDDLEWARE = [
@@ -118,3 +121,10 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWS_CREDENTIALS = True
 X_FRAME_OPTIONS = 'ALLOWALL'
+
+
+cloudinary.config(
+    cloud_name="dsbausrdb",
+    api_key="879762787786198",
+    api_secret="KT9wc2jE2XCDqmMmiv-2WEYhE2Y"
+)
